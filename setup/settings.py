@@ -128,7 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'java_files')
 
-print("MEDIA_ROOT:", MEDIA_ROOT)
 
 
 
