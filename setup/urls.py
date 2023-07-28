@@ -13,5 +13,7 @@ urlpatterns = [
     # path('general-control/', admin.site.urls),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('java_files/<str:filename>/', JavaFileViewSet.as_view(), name='java-file-view'),
+    #path('java_files/<str:filename>/', JavaFileViewSet.as_view(), name='java-file-view'),
+    path('java_files/<str:filename>/', JavaFileViewSet.as_view(), name='java_files'),
+
 ]
