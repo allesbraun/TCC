@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView, ResponseNotAllowed
+from rest_framework.views import APIView
 
 from data.code_analyzer import count_if_statements
 from data.models import Code
@@ -18,7 +18,6 @@ class CodesViewSet(viewsets.ModelViewSet):
 class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
     def get(self, request, filename=None):  # Use o método 'get' ao invés de 'retrieve'
         if request.method == 'GET':
-            print("açucar")
             # Verifica se o arquivo Java existe no diretório 'java_files'
             java_file_path = os.path.join(settings.MEDIA_ROOT, filename)
             if os.path.exists(java_file_path):
@@ -32,11 +31,7 @@ class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
             else:
                 # Se o arquivo não existir, retorna uma resposta 404
                 return Response(status=status.HTTP_404_NOT_FOUND)
-        else:
-            return ResponseNotAllowed(['GET'])  # Retorna 405 se não for GET
-    def post(self, request):
-        print("macarrao")
-        #if request.method == 'POST' and request.FILES['file']:
+    def post(self, request, filename = None):
         if request.method == 'POST':
             print("tomate")
             if 'file' not in request.FILES:
@@ -56,7 +51,6 @@ class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
             }
             # Verificar se a pasta 'java_files' já existe
             if not os.path.exists(settings.MEDIA_ROOT):
-                print("arroz")
                 # Se não existir, criar a pasta
                 os.makedirs(settings.MEDIA_ROOT)
 
