@@ -4,7 +4,8 @@ from django.db import models
 
 
 class Code(models.Model):
-    file = models.FileField(upload_to='java_files/')
+    #file = models.FileField(upload_to='java_files/')
+    file = models.FileField()
     title = models.CharField(max_length=100, default = 'main')
     code_description = models.CharField(max_length=500, default = 'A java code.')
 
