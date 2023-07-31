@@ -1,15 +1,14 @@
 import os
 
 from django.conf import settings
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 
+from data.data_analyzer.data_response import data_response
 from data.models import Code
 from data.serializer import CodeSerializer
-from data_analyzer.if_counter import count_if_statements
 
 
 class CodesViewSet(viewsets.ModelViewSet):
@@ -42,32 +41,22 @@ class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
             
     def post(self, request, filename = None):
         if request.method == 'POST':
-            print("tomate")
             if 'file' not in request.FILES:
                 return Response({"error": "Arquivo não enviado"}, status=status.HTTP_400_BAD_REQUEST)
             
             uploaded_file = request.FILES['file']
             content = uploaded_file.read().decode('utf-8')
 
-            # Conta o número de ocorrências da palavra-chave "if" usando a função count_if_statements
-            count_if = count_if_statements(content)
-            print(count_if)
-
-            # Criar um dicionário para incluir informações sobre o arquivo e a contagem de "ifs"
-            response_data = {
-                'filename': uploaded_file.name,
-                'if_count': count_if,
-            }
             # Verificar se a pasta 'java_files' já existe
             if not os.path.exists(settings.MEDIA_ROOT):
-                print("oi")
                 # Se não existir, criar a pasta
                 os.makedirs(settings.MEDIA_ROOT)
-            print("tchau")
             # Salvar o arquivo no diretório 'java_files'
             file_path = os.path.join(settings.MEDIA_ROOT, uploaded_file.name)
             with open(file_path, 'wb') as file:
                 file.write(uploaded_file.read())
-            # Retorna o dicionário como parte da resposta HTTP
+                
+            # Retorna o dicionário com características extraídas do código como parte da resposta HTTP
+            response_data = data_response(content, uploaded_file)
             return Response(response_data)
         
