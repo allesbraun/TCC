@@ -15,4 +15,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('java_files/<str:filename>/', JavaFileViewSet.as_view(), name='java_files'),
     path('java_files/', JavaFileViewSet.as_view(), name='java_files_list'),
+    path('<str:filename>/', JavaFileViewSet.as_view(), name='java_files'),
 ]

@@ -1,19 +1,22 @@
 import os
 
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import FileResponse, HttpResponse
 from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 
-from data.code_analyzer import count_if_statements
 from data.models import Code
 from data.serializer import CodeSerializer
+from data_analyzer.if_counter import count_if_statements
 
 
 class CodesViewSet(viewsets.ModelViewSet):
     queryset = Code.objects.all()
     serializer_class = CodeSerializer
+    
+    
 
 class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
     def get(self, request, filename=None):  # Use o método 'get' ao invés de 'retrieve'
@@ -23,12 +26,12 @@ class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
                 java_file_path = os.path.join(settings.MEDIA_ROOT, filename)
                 if os.path.exists(java_file_path):
                     # Se o arquivo existir, retorna-o como uma resposta HTTP
-                    with open(java_file_path, 'rb') as file:
+                    with open(java_file_path, 'rb') as file:                      
                         #o download acontece por causa das linhas de baixo
                         response = HttpResponse(file)
                         response['Content-Type'] = 'application/octet-stream'
                         response['Content-Disposition'] = f'attachment; filename="{filename}"'
-                        return response
+                        return response                  
                 else:
                     # Se o arquivo não existir, retorna uma resposta 404
                     return Response(status=status.HTTP_404_NOT_FOUND)
@@ -36,6 +39,7 @@ class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
                 java_files_dir = settings.MEDIA_ROOT
                 files = os.listdir(java_files_dir)
                 return Response({"files": files})
+            
     def post(self, request, filename = None):
         if request.method == 'POST':
             print("tomate")
@@ -66,3 +70,4 @@ class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
                 file.write(uploaded_file.read())
             # Retorna o dicionário como parte da resposta HTTP
             return Response(response_data)
+        
