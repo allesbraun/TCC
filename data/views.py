@@ -1,3 +1,4 @@
+import csv
 import os
 
 from django.conf import settings
@@ -56,7 +57,14 @@ class JavaFileViewSet(APIView):  # Use a classe APIView ao invés de ViewSet
             with open(file_path, 'wb') as file:
                 file.write(uploaded_file.read())
                 
-            # Retorna o dicionário com características extraídas do código como parte da resposta HTTP
+            # Converte a resposta em formato CSV
             response_data = data_response(content, uploaded_file)
-            return Response(response_data)
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = f'attachment; filename="{filename}.csv"'
+
+            # Cria o objeto de escrita CSV e escreve os dados
+            writer = csv.writer(response)
+            writer.writerows(response_data)
+            
+            return response
         

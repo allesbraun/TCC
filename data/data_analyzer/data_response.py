@@ -3,7 +3,6 @@ from data.data_analyzer import *
 
 def data_response(content, file):
     response_data = {
-        'filename': file.name, #OK
         'num_if': count_ifs(content), # Number of if statements in the code #OK
         'num_else': count_elses(content), # Number of else statements in the code #NÃO DEVIA SER CONTADO NO ELSE IF 
         'num_switch': count_switches(content), #Number of switch statements #OK
@@ -20,5 +19,15 @@ def data_response(content, file):
         'num_vari': count_variables(content), # Number of variables declared #NÃO CONTO ARRAYS MAS AINDA NÃO BATE SEMPRE COM OS CRAWLED CODES
         'num_method': count_methods(content), # Number of methods declared
         'num_state': count_statements(content), # Number of statements
+        'filename': file.name, #OK
     }
-    return response_data
+    
+    # Converter o dicionário para lista de listas
+    headers = list(response_data.keys())
+    values = list(response_data.values())
+
+    # Criar a lista de listas para o arquivo CSV
+    csv_data = [headers, values]
+
+    return csv_data
+    #return response_data
