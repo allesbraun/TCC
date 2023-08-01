@@ -1,7 +1,7 @@
 import javalang
 
 
-def count_if_statements(content):
+def count_ifs(content):
     tokens = javalang.tokenizer.tokenize(content)
     count = 0
     for token in tokens:
