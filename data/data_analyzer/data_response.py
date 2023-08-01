@@ -9,12 +9,12 @@ from data.data_analyzer.variable_counter import count_variables
 
 def data_response(content, file):
     response_data = {
-        'filename': file.name,
-        'num_if': count_ifs(content),
-        'num_else': count_elses(content), 
-        'num_break': count_breaks(content), 
-        'num_switch': count_switches(content),
-        'num_loop': count_loops(content),
+        'filename': file.name, #OK
+        'num_if': count_ifs(content), # Number of if statements in the code #OK
+        'num_else': count_elses(content), # Number of else statements in the code #NÃO DEVIA SER CONTADO NO ELSE IF 
+        'num_break': count_breaks(content), # Number of break statements #OK
+        'num_switch': count_switches(content), #Number of switch statements #OK
+        'num_loop': count_loops(content), # Number of loops, including for and while statements #OK
         # 'num_priority': count_priority(content), # Number of priority queues instantiated
         # 'num_binSearch': count_binSearch(content), # Number of calls for a binary search
         # 'num_minMax': count_minMax(content), # Number data of calls for min() or max() functions
