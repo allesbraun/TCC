@@ -7,9 +7,9 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from data.data_analyzer.data_response import data_response
 from data.models import Code
 from data.serializer import CodeSerializer
+from data_analyzer.data_response import data_response
 
 
 class CodesViewSet(viewsets.ModelViewSet):

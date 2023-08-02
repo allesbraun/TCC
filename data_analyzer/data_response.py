@@ -1,4 +1,4 @@
-from data.data_analyzer import *
+from data_analyzer import *
 
 
 def data_response(content, file):
