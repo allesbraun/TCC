@@ -14,10 +14,10 @@ def data_response(content, file):
         'num_sort': count_sorts(content), # Number of calls for the sort() function #OK
         'num_hash_map': count_hash_maps(content), # Number of hash maps instantiated
         'num_hash_set': count_hash_sets(content), # Number of hash sets instantiated
-        'num_recursive': count_recursive(content), # Number of recursive calls for a given function
+        'num_recursive': count_recursive(content), # Number of recursive calls for a given function #TA ERRADO
         'num_nested_loop': count_nested_loops(content), # Depth of nested loops
         'num_vari': count_variables(content), # Number of variables declared #NÃO CONTO ARRAYS MAS AINDA NÃO BATE SEMPRE COM OS CRAWLED CODES
-        'num_method': count_methods(content), # Number of methods declared
+        'num_method': count_methods(content), # Number of methods declared #OK
         'num_state': count_statements(content), # Number of statements
         'filename': file.name, #OK
     }
