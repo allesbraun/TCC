@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'data',
     'data_analyzer',
+    'data_classificators',
+    'data_preprocessor',
 ]
 
 MIDDLEWARE = [
