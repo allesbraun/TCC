@@ -1,4 +1,7 @@
+from rest_framework.response import Response
+
 from data_analyzer import *
+from data_preprocessor.datasets import create_merged_database
 
 
 def data_response(content, file):
@@ -28,6 +31,7 @@ def data_response(content, file):
 
     # Criar a lista de listas para o arquivo CSV
     csv_data = [headers, values]
-
+    merged_database = create_merged_database()
     return csv_data
-  
+    # response = create_merged_database().to_list()
+    # return Response(response)
