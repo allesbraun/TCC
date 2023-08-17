@@ -1,13 +1,17 @@
 import javalang
+from javalang import tree
 
 
-def count_statements(content):
-    tree = javalang.parse.parse(content)
-    count = 0
+class Counter:
+    def count_statements(self, content):
+        count = 0
+        tokens = javalang.tokenizer.tokenize(content)
+        parser = javalang.parser.Parser(tokens)
+        parsed_tree = parser.parse()
 
-    for _, node in tree:
-        if isinstance(node, javalang.tree.Statement):
-            count += 1
+        # for _, node in parsed_tree:
+        #     count += node.
 
-    return count
+        return count
 
+    

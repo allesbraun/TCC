@@ -1,10 +1,11 @@
 from rest_framework.response import Response
 
 from data_analyzer import *
-from data_preprocessor.datasets import create_merged_database
+from data_classificators.autogluon import autogluon
 
 
 def data_response(content, file):
+    counter = Counter()
     response_data = {
         'num_if': count_ifs(content), # Number of if statements in the code #OK
         'num_else': count_elses(content), # Number of else statements in the code #NÃO DEVIA SER CONTADO NO ELSE IF 
@@ -21,7 +22,8 @@ def data_response(content, file):
         'num_nested_loop': count_nested_loops(content), # Depth of nested loops no código #Maximumsumrectangleina2DmatrixDP27GeeksforGeeks-1.java minha versão conta 5 e eu contei 5 mas a do professor conta 3
         'num_vari': count_variables(content), # Number of variables declared #NÃO CONTO ARRAYS MAS AINDA NÃO BATE SEMPRE COM OS CRAWLED CODES
         'num_method': count_methods(content), # Number of methods declared #OK
-        'num_state': count_statements(content), # Number of statements #O QUE EU DEVO CONSIDERAR STATEMENTS?
+        # 'num_state': count_statements(content), # Number of statements #O QUE EU DEVO CONSIDERAR STATEMENTS?
+        'num_state': counter.count_statements(content),
         'filename': file.name, #OK
     }
     
@@ -31,7 +33,8 @@ def data_response(content, file):
 
     # Criar a lista de listas para o arquivo CSV
     csv_data = [headers, values]
-    merged_database = create_merged_database()
+    complexity = autogluon(csv_data)
+    # merged_database = create_merged_database()
     return csv_data
     # response = create_merged_database().to_list()
     # return Response(response)
