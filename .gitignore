@@ -1,1 +1,6 @@
 venv/
+# Ignorar arquivos .pyc
+*.pyc
+
+# Ignorar a pasta __pycache__ inteira
+__pycache__/
