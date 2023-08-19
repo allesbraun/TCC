@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 
 from data_analyzer import *
-from data_classificators.autogluon import autogluon
+from data_classificators.autogluon_classificator import autogluon
 
 
 def data_response(content, file):

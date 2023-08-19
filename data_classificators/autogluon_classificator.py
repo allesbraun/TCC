@@ -3,7 +3,7 @@ from autogluon.tabular import TabularPredictor
 from data_preprocessor.datasets import create_merged_database
 
 
-def autogluon(code_csv):
+def autogluon_classifier(code_csv):
     merged_database, x_merged_class, y_merged_class, x_merged_efficiency, y_merged_efficiency = create_merged_database()
     # Load and prepare your data
     train_data = merged_database
