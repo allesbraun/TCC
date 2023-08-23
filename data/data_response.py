@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 
 from data_analyzer import *
-from data_classificators.autogluon_classificator import autogluon
+from data_classificators.autogluon_classificator import autogluon_classifier
 
 
 def data_response(content, file):
@@ -33,7 +33,7 @@ def data_response(content, file):
 
     # Criar a lista de listas para o arquivo CSV
     csv_data = [headers, values]
-    complexity = autogluon(csv_data)
+    #complexity = autogluon_classifier(csv_data)
     # merged_database = create_merged_database()
     return csv_data
     # response = create_merged_database().to_list()

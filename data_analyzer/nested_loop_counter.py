@@ -1,12 +1,17 @@
-import re
+import javalang
+from javalang.tree import ForStatement, WhileStatement
 
 
 def count_nested_loops(content):
-    # Regular expressions to match for and while loops
-    for_loop_pattern = r'\bfor\s*\([^)]*\)\s*{'
-    while_loop_pattern = r'\bwhile\s*\([^)]*\)\s*{'
+    tree = javalang.parse.parse(content)
+    num_nested_loop = 0
+    for_statements = tree.filter(ForStatement)
+    while_statements = tree.filter(WhileStatement)
+    loop_statements = list(for_statements) + list(while_statements)
+    for _, node in loop_statements:
+        sum = len(list(node.filter(ForStatement))) + len(list(node.filter(WhileStatement)))
+        if sum != 1 and sum > num_nested_loop:
+            num_nested_loop = sum
+    
 
-    # Count the occurrences of nested loops
-    num_nested_loops = len(re.findall(f'({for_loop_pattern}|{while_loop_pattern})', content))
-
-    return num_nested_loops
+    return num_nested_loop
