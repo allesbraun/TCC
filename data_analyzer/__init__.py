@@ -11,7 +11,6 @@ from .nested_loop_counter import count_nested_loops
 from .priority_counter import count_priority
 from .recursive_counter import count_recursive
 from .sort_counter import count_sorts
-# from .statement_counter import count_statements
-from .statement_counter import Counter
+from .statement_counter import count_statements
 from .switch_counter import count_switches
 from .variable_counter import count_variables
