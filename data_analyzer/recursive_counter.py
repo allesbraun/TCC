@@ -1,22 +1,18 @@
-import re
+import javalang
 
 
 def count_recursive(content):#se existir mais de uma função recursiva como faço?
-    # Use a regular expression to find all function definitions in the Java code
-    function_definitions = re.findall(r'\b\s*void\s+(\w+)\s*\(', content)
+    
+    tree = javalang.parse.parse(content)
+    num_recursion = 0
 
-    # Initialize a dictionary to store the number of recursive calls for each function
-    recursive_calls_count = {}
+    for _, node in tree.filter(javalang.tree.MethodDeclaration):
 
-    for function_name in function_definitions:
-        # Use a regular expression to find all function calls to the current function
-        pattern = r'\b' + function_name + r'\s*\('
-        matches = re.findall(pattern, content)
-
-        # Store the number of recursive calls for the current function
-        recursive_calls_count[function_name] = len(matches)
-
-    return len(matches)
+        temp_name = node.name
+        if node.name+',' in str(node).replace('name=' + temp_name, ''):
+            num_recursion = str(node).replace('name=' + temp_name, '').count(node.name+',')
+    
+    return num_recursion
     
 
 
