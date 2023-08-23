@@ -1,13 +1,12 @@
-import re
-
 import javalang
-from javalang import tree
 
 
 #LocalVariableDeclaration + VariableDeclaration
 def count_variables(content):
-    tokens = list(javalang.tokenizer.tokenize(content))#a declaração de variável não é captada pelo token eu acho
+    tree = javalang.parse.parse(content)
     count = 0
-    aux = tokens
-    
+
+    count += sum(1 for _ in tree.filter(javalang.tree.LocalVariableDeclaration))
+    count += sum(1 for _ in tree.filter(javalang.tree.VariableDeclaration))
+
     return count 
