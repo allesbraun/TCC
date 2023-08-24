@@ -18,7 +18,7 @@ def autogluon_classifier(code_csv):
     test_data = code_csv
 
     # Define the task (classification) and label column
-    predictor = TabularPredictor(label='complexity')
+    predictor = TabularPredictor(label='complexity_class')
 
     # Train the model
     predictor.fit(train_data)
