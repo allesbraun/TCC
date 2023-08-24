@@ -3,25 +3,6 @@ import re
 
 import javalang
 
-# def count_minMax(content):
-    
-#     first_recursive_call = 1 #makes sure that when eliminating the recursive we don't eliminate the original one
-    
-#     min_calls = len(re.findall(r'\bmin\([^)]*\)', content))
-#     max_calls = len(re.findall(r'\bmax\([^)]*\)', content))
-
-#     min_recursive_calls = len(re.findall(r'\bmin(?!\()', content))
-#     max_recursive_calls = len(re.findall(r'\bmax(?!\()', content))
-    
-#     if(min_recursive_calls > 0):
-#         min_calls = min_calls + first_recursive_call
-#     if(max_recursive_calls > 0):
-#         max_calls = max_calls + first_recursive_call
-
-#     return min_calls - min_recursive_calls + max_calls - max_recursive_calls
-
-
-
 
 def count_minMax(content):
     # Parse the Java code
@@ -41,3 +22,18 @@ def count_minMax(content):
                 max_calls += 1
 
     return min_calls + max_calls
+
+# import javalang
+
+# def count_sorts(content):
+#     tree = javalang.parse.parse(content)
+#     currently_analyzed_methods = set()
+#     count = 0
+#     for _, node in tree.filter(javalang.tree.MethodInvocation):
+#         if node.member == 'sort':
+#             if node.member in currently_analyzed_methods:
+#                 continue  # Skip this occurrence, it's a recursive call
+#             else:
+#                 currently_analyzed_methods.add(node.member)
+#                 count += 1
+#     return count
