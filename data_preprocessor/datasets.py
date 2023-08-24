@@ -39,24 +39,27 @@ def create_merged_database():
     # Salvar o dataframe como um arquivo CSV
     merged_database.to_csv(output_file)
     
+def smote(database):
+    
     # #complexity class for merged
-    x_merged_class = merged_database.drop(['complexity', 'complexity_class', 'efficiency','filename','num_switch'], axis = 1) 
-    y_merged_class = merged_database['complexity_class']
+    x_class = database.drop(['complexity', 'complexity_class', 'efficiency','filename','num_switch'], axis = 1) 
+    y_class = database['complexity_class']
 
     # #efficiency for merged
-    x_merged_efficiency = merged_database.drop(['complexity', 'complexity_class', 'efficiency','filename','num_switch','num_break', 'num_Priority','num_hash_set'], axis = 1) 
-    y_merged_efficiency = merged_database['efficiency']
+    x_efficiency = database.drop(['complexity', 'complexity_class', 'efficiency','filename','num_switch','num_break', 'num_Priority','num_hash_set'], axis = 1) 
+    y_efficiency = database['efficiency']
     
     # #applying SMOTE for class balancing   
 
     sm = SMOTE(random_state=42, k_neighbors=1)
     
     # complexity class for merged
-    x_merged_class, y_merged_class = sm.fit_resample(x_merged_class, y_merged_class)
+    x_class, y_class = sm.fit_resample(x_class, y_class)
     #efficiency for merged
-    x_merged_efficiency, y_merged_efficiency = sm.fit_resample(x_merged_efficiency, y_merged_efficiency)
+    x_efficiency, y_efficiency = sm.fit_resample(x_efficiency, y_efficiency)
+    return x_class, y_class, x_efficiency, y_efficiency
     
-    return merged_database, x_merged_class, y_merged_class, x_merged_efficiency, y_merged_efficiency               
+        
 
 
 

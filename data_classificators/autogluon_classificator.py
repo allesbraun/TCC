@@ -1,16 +1,24 @@
+import os
+
+import pandas as pd
 from autogluon.tabular import TabularPredictor
 
-from data_preprocessor.datasets import create_merged_database
+from data_preprocessor.datasets import smote
+from databases import *
 
 
 def autogluon_classifier(code_csv):
-    merged_database, x_merged_class, y_merged_class, x_merged_efficiency, y_merged_efficiency = create_merged_database()
+    #x_class, y_class, x_efficiency, y_efficiency = smote()
+    # Caminho para a pasta que contém o arquivo datasets
+    path_datasets = os.path.dirname(os.path.abspath(__file__))
+    path_databases = os.path.join(path_datasets, '..', 'databases')
+    path_database = os.path.join(path_databases, 'merged_database.csv')
     # Load and prepare your data
-    train_data = merged_database
+    train_data = pd.read_csv(path_database, sep=",", header=0, decimal=",", dtype=str)
     test_data = code_csv
 
     # Define the task (classification) and label column
-    predictor = TabularPredictor(label='target_column')
+    predictor = TabularPredictor(label='complexity')
 
     # Train the model
     predictor.fit(train_data)

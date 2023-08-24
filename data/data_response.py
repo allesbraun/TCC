@@ -7,7 +7,7 @@ from data_classificators.autogluon_classificator import autogluon_classifier
 def data_response(content, file):
     response_data = {
         'num_if': count_ifs(content), # Number of if statements in the code #OK
-        'num_else': count_elses(content), # Number of else statements in the code #OK?
+        'num_else': count_elses(content), # Number of else statements in the code #OK
         'num_switch': count_switches(content), #Number of switch statements #OK
         'num_loop': count_loops(content), # Number of loops, including for and while statements #OK
         'num_break': count_breaks(content), # Number of break statements #OK
@@ -33,6 +33,8 @@ def data_response(content, file):
     csv_data = [headers, values]
     #complexity = autogluon_classifier(csv_data)
     # merged_database = create_merged_database()
-    return csv_data
+    return autogluon_classifier(csv_data)
+ 
+    #return csv_data
     # response = create_merged_database().to_list()
     # return Response(response)
