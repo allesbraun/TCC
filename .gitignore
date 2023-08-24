@@ -4,3 +4,5 @@ venv/
 
 # Ignorar a pasta __pycache__ inteira
 __pycache__/
+
+AutogluonModels/
