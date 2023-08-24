@@ -1,3 +1,4 @@
+import pandas as pd
 from rest_framework.response import Response
 
 from data_analyzer import *
@@ -25,16 +26,20 @@ def data_response(content, file):
         'filename': file.name, #OK
     }
     
-    # Converter o dicionário para lista de listas
     headers = list(response_data.keys())
     values = list(response_data.values())
-
-    # Criar a lista de listas para o arquivo CSV
     csv_data = [headers, values]
-    #complexity = autogluon_classifier(csv_data)
-    # merged_database = create_merged_database()
-    return autogluon_classifier(csv_data)
+    return csv_data
+    
+    # # Converter o dicionário para lista de listas
+    # headers = list(response_data.keys())
+    # values = list(response_data.values())
+
+    # # Criar a lista de listas para o arquivo CSV
+    # csv_data = [values]  # Agora, apenas a lista de valores
+
+    # # Criar um DataFrame do pandas a partir dos dados
+    # df = pd.DataFrame(csv_data, columns=headers)  # Criar o DataFrame
+
+    # return autogluon_classifier(df)
  
-    #return csv_data
-    # response = create_merged_database().to_list()
-    # return Response(response)
