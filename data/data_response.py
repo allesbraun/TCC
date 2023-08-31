@@ -30,13 +30,10 @@ def data_response(content, file):
     # Converter o dicionário para lista de listas
     headers = list(response_data.keys())
     values = list(response_data.values())
-    csv_data = [headers, values]
-
     # Criar a lista de listas para o arquivo CSV
     data_values = [values]  # Agora, apenas a lista de valores
 
     # Criar um DataFrame do pandas a partir dos dados
     df = pd.DataFrame(data_values, columns=headers)  # Criar o DataFrame
-    # autogluon_classifier(df)
-    return csv_data
+    return autogluon_classifier(df)
  
