@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'data',
     'data_analyzer',
     'data_classificators',
-    'data_preprocessor',
 ]
 
 MIDDLEWARE = [
