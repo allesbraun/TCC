@@ -32,6 +32,19 @@ def autogluon_classifier(code_csv):
     csv_file = str(test_data['filename'])
     csv_file = csv_file.replace('.java', '.csv')
     test_data.to_csv(csv_file, index=False)
+    
+    # Nome da pasta que você deseja criar
+    folder_name = 'csv_files'
+
+    # Cria a pasta se ela não existir
+    if not os.path.exists(folder_name):
+        os.mkdir(folder_name)
+
+    # Cria o caminho completo para o arquivo CSV dentro da pasta
+    csv_file_path = os.path.join(folder_name, csv_file)
+
+    # Salva o DataFrame em um arquivo CSV dentro da pasta
+    test_data.to_csv(csv_file_path, index=False)
 
     return test_data
 
